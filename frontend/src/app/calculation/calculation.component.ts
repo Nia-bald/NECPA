@@ -6,10 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TimerComponent } from '../timer/timer.component';
 import { TimeTracker } from '../functions';
 import { StatsComponent } from '../stats/stats.component';
+import { NgIf, NgStyle } from '@angular/common';
 @Component({
   selector: 'app-calculation',
   standalone: true,
-  imports: [FormsModule, TimerComponent, StatsComponent],
+  imports: [FormsModule, TimerComponent, StatsComponent, NgIf, NgStyle],
   templateUrl: './calculation.component.html',
   styleUrl: './calculation.component.css'
 })
@@ -25,6 +26,10 @@ export class CalculationComponent {
   ix:number=-1;
   temp:number=0;
   localcopy: boolean = false;
+  diffculty: string = 'easy';
+  easyselected: boolean = false;
+  mediumselected: boolean = true;
+  hardselected: boolean = false;
   private subscription: Subscription;
   constructor(public sharedService: SharedserviceService, public route:ActivatedRoute) {
     this.subscription = this.sharedService.isTimerOn$.subscribe((value)=>{this.handleisTimerOnchange(value);})
@@ -62,20 +67,37 @@ export class CalculationComponent {
   assignProblem(){
     // console.log(this.route.snapshot.routeConfig?.path);
     this.timeTracker.startTimer();
-    this.num1 = this.getRandomInt(100, 1);
-    this.num2 = this.getRandomInt(10, 1);
+
+    this.ix = this.getRandomInt(this.operations.length-1, 0);
+    this.operation = this.operations[this.ix];
+
+    if (this.diffculty == 'easy'){
+      this.num1 = this.getRandomInt(10, 1);
+      this.num2 = this.getRandomInt(10, 1);  
+    }
+    if (this.diffculty == 'medium'){
+      if (this.operation != '÷' && this.operation != '×'){
+        this.num2 = this.getRandomInt(100, 10);  
+        this.num1 = this.getRandomInt(100, 10);
+      }
+      else{
+        this.num2 = this.getRandomInt(12, 1);
+        this.num1 = this.getRandomInt(90, 10);
+      }
+    }
+    if (this.diffculty == 'hard'){
+      this.num2 = this.getRandomInt(100, 10);  
+      this.num1 = this.getRandomInt(100, 10);
+    }
+
     if (this.num1 < this.num2){
       this.temp = this.num1
       this.num1 = this.num2
       this.num2 = this.temp
     }
 
-    this.ix = this.getRandomInt(this.operations.length-1, 0);
-    this.operation = this.operations[this.ix];
     if (this.operation == "÷"){
-      this.temp = this.num1
       this.num1 = this.num1*this.num2
-      this.num2 = this.temp
     }
 
     this.correctans = this.operate(this.num1, this.num2, this.operation)
@@ -112,6 +134,33 @@ export class CalculationComponent {
     this.sharedService.game.problemdetails.push(Object.assign({}, this.sharedService.problem))
     this.assignProblem();
     this.userans="";
+  }
+
+
+  setdifficulty2easy() {
+    this.diffculty = 'easy';
+    this.easyselected = true;
+    this.mediumselected = false;
+    this.hardselected = false;
+    this.assignProblem();
+
+  }
+
+  setdifficulty2medium() {
+    this.diffculty = 'medium';
+    this.easyselected = false;
+    this.mediumselected = true;
+    this.hardselected = false;
+    this.assignProblem();
+  }
+
+  setdifficulty2hard() {
+    this.diffculty = 'hard';
+    this.easyselected = false;
+    this.mediumselected = false;
+    this.hardselected = true;
+    this.assignProblem();
+
   }
 
   ngOnDestroy() {

@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let game of sharedService.games.reverse()" [routerLink]="['/gamedetails', game.id]">
+      <tr *ngFor="let game of sharedService.games" [routerLink]="['/gamedetails', game.id]">
             <th scope="row">{{game.id}}</th>
             <td>{{game.correct}}</td>
             <td>{{game.incorrect}}</td>
@@ -30,3 +30,4 @@
       </tr>
     </tbody>
   </table>
+  <app-scorechart></app-scorechart>

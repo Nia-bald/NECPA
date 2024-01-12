@@ -31,7 +31,7 @@ export class TimerComponent {
 
   startTimer() {
     if (this.intervalActive == false){
-      this.intervalId = setInterval(() => this.numIncrement(this.sharedService.count), 1000);
+      this.intervalId = setInterval(() => this.numIncrement(this.sharedService.time), 1000);
       
       this.intervalActive = true;
     }
@@ -44,8 +44,8 @@ export class TimerComponent {
 
   numIncrement(numRecievd: number){
     
-    this.sharedService.count -= 1;
-    if (this.sharedService.count == 0) {
+    this.sharedService.time -= 1;
+    if (this.sharedService.time == 0) {
       this.sharedService.computeHighScore();
       this.stopTimer();
       this.sharedService.setisTimerOn(false);

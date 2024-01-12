@@ -15,7 +15,7 @@ export class SharedserviceService {
 
   private isTimerOnSource = new BehaviorSubject<boolean>(false);
   isTimerOn$ = this.isTimerOnSource.asObservable();
-  totalcount: number = 10;
+  maxtime: number = 10;
   highscore: number = 0;
   // currentDateAndTime: Date = new Date();
 
@@ -25,7 +25,7 @@ export class SharedserviceService {
     incorrect: 0,
     accuracy: 0,
     attempted: 0,
-    time: this.totalcount,
+    time: this.maxtime,
     rate: 0,
     problemdetails: [],
     date: new Date().toISOString()
@@ -38,7 +38,7 @@ export class SharedserviceService {
     correct: false,
   }
   data :string = "";
-  count: number = this.totalcount;
+  time: number = this.maxtime;
   constructor() {
     this.loadGame();
   }

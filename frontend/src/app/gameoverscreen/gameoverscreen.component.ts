@@ -15,8 +15,8 @@ export class GameoverscreenComponent {
 
   restart() {
     if (this.time != 0){
-      this.sharedService.totalcount = this.time;}
-    this.sharedService.count = this.sharedService.totalcount;
+      this.sharedService.maxtime = this.time;}
+    this.sharedService.time = this.sharedService.maxtime;
     this.sharedService.game.attempted = this.sharedService.game.correct + this.sharedService.game.incorrect;
     this.sharedService.game.problemdetails.shift();
     this.sharedService.games.push(Object.assign({}, this.sharedService.game));
@@ -25,7 +25,7 @@ export class GameoverscreenComponent {
     this.sharedService.game.accuracy = 0;
     this.sharedService.game.attempted=0;
     this.sharedService.game.id += 1;
-    this.sharedService.game.time = this.sharedService.totalcount
+    this.sharedService.game.time = this.sharedService.maxtime
     this.sharedService.game.rate = this.sharedService.game.correct/this.sharedService.game.time
     this.sharedService.game.date = new Date().toISOString();
     this.sharedService.game.problemdetails = [];
