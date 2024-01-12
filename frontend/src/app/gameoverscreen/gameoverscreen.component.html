@@ -1,0 +1,24 @@
+
+
+<div class="text-center">
+    <h2 class="display-3">Game Over, Baby! XOXOX</h2>
+    <a>
+        Game no.: {{sharedService.game.id}} |
+        Correct Answers: {{ sharedService.game.correct }} |
+        Incorrect Answers: {{ sharedService.game.incorrect}} |
+        Accuracy: {{ sharedService.game.accuracy }} |
+        Attempted: {{ sharedService.game.attempted }}
+    </a>
+    <form>
+        <div for="ans" class="text-center">
+                Time Limit:
+        </div>
+        <div class="text-center">
+            <input class="text-center"type="number" [(ngModel)]="time" name="ans" autocomplete="off" style="width: 40%;" 
+             value="10">
+        </div>
+    </form>
+    
+        <button type="button" (click)="restart()">Restart</button>
+  </div>
+  

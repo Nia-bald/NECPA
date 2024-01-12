@@ -1,0 +1,25 @@
+<!-- <li *ngFor="let problem of game?.problemdetails">
+    <td>{{problem.num1}}</td>
+    <td>{{problem.num2}}</td>
+    <td>{{problem.operation}}</td>
+    <td>{{problem.timetaken}}</td>
+    <td>{{problem.correct}}</td>
+
+</li> -->
+<h1 class="text-center">Game no. {{localgame?.id}} </h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Problem</th>
+        <th scope="col">iscorrect</th>
+        <th scope="col">timetaken</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let problem of localgame?.problemdetails">
+        <td>{{problem.num1}} {{problem.operation}} {{problem.num2}}</td>
+        <td>{{problem.correct}}</td>
+        <td>{{problem.timetaken}}</td>
+    </tbody>
+  </table>
+  

@@ -1,0 +1,5 @@
+  /* Style for the h1 tag within the header */
+h1 {
+margin: 0; /* Remove default margin */
+color: darkblue;
+}
